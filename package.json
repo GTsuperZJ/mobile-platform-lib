@@ -1,0 +1,18 @@
+{
+  "name": "mobile-platform-lib",
+  "version": "0.0.2",
+  "main": "./src/index.js",
+  "scripts": {
+    "lib": "vue-cli-service build --target lib --name mobile-platform-lib --dest lib src/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "qs": "^6.11.0",
+    "vue": "^2.6.14",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.5.19",
+    "vue-template-compiler": "^2.7.14"
+  }
+}
