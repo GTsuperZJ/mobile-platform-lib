@@ -1,4 +1,4 @@
-import { setupCordova, setupJSBridge, ready, isReady } from './setup/cordova'
+import { setupCordova, setupJSBridge, setupHarmony, ready, isReady } from './setup/cordova'
 import { instance as platform } from './platform-api'
 import { instance as native } from './native-api'
 import store from './mock/store'
@@ -21,6 +21,7 @@ const init = (appId) => {
 	window.appId = appId
 	setupCordova()
 	setupJSBridge()
+	setupHarmony()
 	Object.assign(platformApi, platform())
 	Object.assign(nativeApi, native())
 	window.mock = process.env.NODE_ENV !== 'production'

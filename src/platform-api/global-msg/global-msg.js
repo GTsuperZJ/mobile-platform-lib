@@ -18,7 +18,7 @@ export const global_msg = {
 			return
 		}
 		window.top.document.addEventListener('receiveGlobalMsg', e => {
-			callback(e.data.data)
+			callback(e.data.data || e.data)
 		})
 	},
 	dialog: ({ appId: appId, type: type, data: data }) => {

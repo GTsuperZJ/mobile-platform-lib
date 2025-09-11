@@ -38,14 +38,20 @@ export const jy_window = {
 			}
 			window.jyLogEnterTime = ''
 			jysdk.platformApi.jy_log.handleLog({ to: window.jyLogTo, from: from })
-			if (e.data.data) {
-				if (e.data.data === noData) {
-					callback('')
-				} else {
-					callback(e.data.data)
-				}
+
+			if (typeof e == 'string') {
+				// 鸿蒙情况
+				callback(e)
 			} else {
-				callback(e.data)
+				if (e.data.data) {
+					if (e.data.data === noData) {
+						callback('')
+					} else {
+						callback(e.data.data)
+					}
+				} else {
+					callback(e.data)
+				}
 			}
 			window.top.document.removeEventListener('close', back)
 		}

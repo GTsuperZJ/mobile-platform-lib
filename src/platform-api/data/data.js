@@ -2,6 +2,9 @@ import jysdk from '../../index.js'
 import {
   getLocalStorage
 } from '../../utils/localStorage_utils'
+import {
+  interfaceMapping
+} from '../../request/request.js'
 let hostConfig = '$hostConfig$'
 
 export const jy_data = {
@@ -101,6 +104,25 @@ export const jy_data = {
   async isEcCommunicationEnabled () {
     let params = await jysdk.nativeApi.jy_storage.getItemAsync('$params$')
     return params['EC_COMMUNICATION'] === '00'
+  },
+  async getHostByCode (code, hostNameEn) {
+    return new Promise(async (resolve, reject) => {
+      interfaceMapping(code).then(async res => {
+        let resData = res.data
+        let data = resData.data
+        let availableNetworkAddresses = await jysdk.nativeApi.jy_storage.getItemAsync('availableNetworkAddresses')
+        if (resData.code == 0 && availableNetworkAddresses in data) {
+          let list = data[availableNetworkAddresses]
+          // 匹配
+          const matches = list.filter(item => item.hostNameEn === hostNameEn);
+          resolve(matches[0].hostAddress)
+        } else {
+          reject("")
+        }
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
 }
 export const apiInstaller = () => {

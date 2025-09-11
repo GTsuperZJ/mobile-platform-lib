@@ -51,6 +51,14 @@ export const jy_storage = {
             }
         })
 
+    },
+    removeItem (key) {
+        if (process.env.NODE_ENV == 'production') {
+            window.top.NativeStorage.remove(key)
+        } else {
+            window.top.localStorage.removeItem(key)
+            // jysdk.store.state[key] = null
+        }
     }
 }
 

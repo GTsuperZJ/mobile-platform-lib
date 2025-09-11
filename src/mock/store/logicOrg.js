@@ -85,15 +85,18 @@ export default {
           const { data, code, msg } = res.data
           if (code === 0) {
             if (data) {
-              result.setLogicOrgRootId(data.id)
-              result.setLogicOrgCode(data.code)
-              result.setSysRegionId(data.sysRegionId)
-              result.setOrgTree([data])
-              commit('SET_LOGIC_ORG_CONFIG', result)
-              let orgConfig = {
-                orgConfig: result
+              if (window.mock) {
+                result.setLogicOrgRootId(data.id)
+                result.setLogicOrgCode(data.code)
+                result.setSysRegionId(data.sysRegionId)
+                result.setOrgTree([data])
+                commit('SET_LOGIC_ORG_CONFIG', result)
+              } else {
+                let orgConfig = {
+                  orgConfig: result
+                }
+                jysdk.nativeApi.jy_storage.setItem('logicOrg', orgConfig)
               }
-              jysdk.nativeApi.jy_storage.setItem('logicOrg', orgConfig)
               resolve({ logicOrgTreeCode: userInfo.logicCodes[0], logicOrgRootId: data.id })
             } else {
               reject('获取逻辑机构信息失败1')
